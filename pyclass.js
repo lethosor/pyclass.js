@@ -25,7 +25,7 @@ window.Class = (function(){
 					not_head = false;
 				// Check to see if the candidate is later in another sequence
 				for (var j = 0; j < non_empty.length; j++) {
-					if (non_empty[j].slice(1).indexOf(candidate)) {
+					if (non_empty[j].slice(1).indexOf(candidate) > -1) {
 						not_head = true;
 						break;
 					}
@@ -59,7 +59,7 @@ window.Class = (function(){
 				object.__init__.apply(this, arguments);
 			return object;
 		};
-		init.__mro__ = MRO.apply(this, classes)[0];
+		init.__mro__ = MRO.apply(this, classes);
 		init.isClass = true;
 		return init;
 	};
