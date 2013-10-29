@@ -54,7 +54,7 @@ window.Class = (function(){
 			mro = [];
 		var init = function(){
 			var object = {},
-				classList = init.__mro__;
+				classList = init.__mro__.slice();
 			// Add a helper function to call this class's constructor
 			classList.push(function(){
 				constructor(object);
