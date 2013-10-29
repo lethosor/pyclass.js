@@ -12,7 +12,7 @@ window.Class = (function(){
 			seqs = [],
 			res = [];
 		for (var i = 0; i < classes.length; i++) {
-			seqs.push(classes[i].isClass?classes[i].__mro__:[]);
+			seqs.push(classes[i].isClass?classes[i].__mro__.slice():[]);
 		}
 		seqs.push(classes);
 		while (1) {
