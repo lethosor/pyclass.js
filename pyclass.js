@@ -51,10 +51,22 @@ window.Class = (function(){
 	var Class = function(){
 		var classes = [].slice.apply(arguments),
 			constructor = classes.pop(),
-			object = {},
 			mro = [];
 		var init = function(){
-			constructor(object);
+			var object = {},
+				classList = init.__mro__;
+			// Add a helper function to call this class's constructor
+			classList.push(function(){
+				constructor(object);
+			});
+			for (var i = 0; i < classList.length; i++) {
+				var instance = classList[i].apply(this, arguments);
+				for (var k in instance) {
+					if (!(k in {})) {
+						object[k] = instance[k];
+					}
+				}
+			}
 			if ('__init__' in object && 'apply' in object.__init__)
 				object.__init__.apply(this, arguments);
 			return object;
