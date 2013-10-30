@@ -52,6 +52,15 @@ window.Class = (function(){
 		var classes = [].slice.apply(arguments),
 			constructor = classes.pop(),
 			mro = [];
+		if (!(!!constructor && 'call' in constructor)) {
+			throw TypeError('Invalid constructor.');
+		}
+		for (var c in classes) {
+			var cls = classes[c];
+			if (!(c in []) && !(cls && cls.isClass && 'apply' in cls && '__mro__' in cls)) {
+				throw TypeError('Parent class is not a valid class.');
+			}
+		}
 		var init = function(){
 			var object = {},
 				classList = init.__mro__.slice();
